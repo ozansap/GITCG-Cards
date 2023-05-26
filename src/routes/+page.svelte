@@ -4,12 +4,13 @@
 	import type { AnyCard, CardType } from '$lib/utils/Cards';
 	import { Cards } from '$lib/utils/Cards';
 	import Card from '$lib/components/Card.svelte';
-	import { Filters, filterValues, type FilterValuesCategory } from '$lib/utils/Filters';
+	import { Filters, store_filterValues, type FilterValuesCategory } from '$lib/utils/Filters';
+	import { store_deckCards } from '$lib/utils/Deck';
 
 	let cardType: CardType = 'character';
 	let query = '';
 
-	$: filters = $filterValues[cardType] as FilterValuesCategory<AnyCard>[];
+	$: filters = $store_filterValues[cardType] as FilterValuesCategory<AnyCard>[];
 	$: filtered = Filters.apply(Cards.list[cardType], filters, query);
 </script>
 
@@ -18,18 +19,18 @@
 </div>
 
 <div class="flex-1">
-	<div class="mb-40 grid w-full grid-cols-4 gap-2 p-2">
+	<div class="grid w-full grid-cols-4 p-2 pb-44">
 		{#each filtered as card, index}
-			<div class="flex items-center justify-center rounded-md hover:border-2">
-				<Card {cardType} {card} {index} />
-			</div>
+			<Card {cardType} {card} {index} />
 		{/each}
 	</div>
 </div>
 
-<div class="fixed bottom-0 h-40 w-full border-t-2 border-color_accent bg-black/70 p-2 shadow-20 shadow-white/20 backdrop-blur">
-	<Deck />
-</div>
+{#if $store_deckCards.character.length > 0 || $store_deckCards.action.length > 0}
+	<div class="fixed bottom-0 z-10 w-full border-t-2 border-color_accent bg-black/70 shadow-20 shadow-white/20 backdrop-blur">
+		<Deck />
+	</div>
+{/if}
 
 <style lang="postcss">
 </style>

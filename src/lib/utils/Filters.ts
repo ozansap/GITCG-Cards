@@ -148,7 +148,7 @@ export class Filters {
 	}
 }
 
-export const filterValues = writable(Filters.values);
+export const store_filterValues = writable(Filters.values);
 
 export type FilterValues = {
 	character: FilterValuesCategory<CharacterCard>[];

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { CardType } from '$lib/utils/Cards';
-	import { Filters, filterValues } from '$lib/utils/Filters';
+	import { Filters, store_filterValues } from '$lib/utils/Filters';
 	import SVG_filter from '../svg/filter.svelte';
 	import SVG_search from '../svg/search.svelte';
 
@@ -30,7 +30,7 @@
 			<SVG_filter />
 		</button>
 	</div>
-	{#each Object.entries($filterValues) as [menuType, menu], i}
+	{#each Object.entries($store_filterValues) as [menuType, menu], i}
 		{#if cardType === menuType && expanded}
 			{#each menu as category, j}
 				<fieldset class="relative mt-6 rounded-full border-2 border-color_text text-xs">
