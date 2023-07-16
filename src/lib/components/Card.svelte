@@ -2,6 +2,7 @@
 	import type { AnyCard } from '$lib/utils/Cards';
 	import type { CardType } from '$lib/utils/Cards';
 	import { store_deckCards } from '$lib/utils/Deck';
+	import { when } from '$lib/utils/helpers';
 
 	export let cardType: CardType;
 	export let card: AnyCard;
@@ -23,10 +24,13 @@
 
 		$store_deckCards = $store_deckCards;
 	}
+
+	$: count = $store_deckCards[cardType].filter((x) => x.id === card.id).length;
+	$: unavailable = cardType === 'character' ? count === 1 : count === 2;
 </script>
 
 <button on:click={handle} class="flex items-center justify-center rounded-md border-2 border-transparent hover:!border-white">
 	<div class="p-2">
-		<img src="/cards/{card.id}.webp" alt={card.name} />
+		<img src="/cards/{card.id}.webp" alt={card.name} class={when(unavailable, 'grayscale')} />
 	</div>
 </button>
