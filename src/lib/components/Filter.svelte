@@ -11,7 +11,7 @@
 	let expanded = false;
 </script>
 
-<div class="sticky top-0 z-10 w-full border-b-2 border-color_accent bg-color_bg/70 p-4 text-color_text shadow-20 shadow-white/20 backdrop-blur">
+<div class="sticky top-0 z-10 w-full border-b-2 border-color_accent bg-color_bg/80 p-4 text-color_text shadow-20 shadow-white/20 backdrop-blur">
 	<div class="flex items-center justify-between gap-2 text-sm {when(expanded, 'mb-8')}">
 		<div class="relative flex flex-1 rounded-full border-2 border-color_accent">
 			<div class="absolute -z-10 h-full min-w-[5rem] rounded-full bg-color_primary {when(cardType === 'character', 'left-0', 'right-0')}" />

@@ -5,7 +5,6 @@
 	import { Cards } from '$lib/utils/Cards';
 	import Card from '$lib/components/Card.svelte';
 	import { Filters, store_filterValues, type FilterValuesCategory } from '$lib/utils/Filters';
-	import { store_deckCards } from '$lib/utils/Deck';
 
 	let cardType: CardType = 'character';
 	let query = '';
@@ -24,9 +23,7 @@
 	</div>
 </div>
 
-{#if $store_deckCards.character.length > 0 || $store_deckCards.action.length > 0}
-	<Deck />
-{/if}
+<Deck />
 
 <style lang="postcss">
 </style>
