@@ -89,37 +89,37 @@ export class Filters {
 				active: '!border-dendro bg-dendro/20'
 			},
 			equipment_all: {
-				active: '!border-white bg-white/20 text-white'
+				active: 'bg-color_primary text-white'
 			},
 			equipment_talent: {
-				active: '!border-white bg-white/20 text-white'
+				active: 'bg-color_primary text-white'
 			},
 			equipment_weapon: {
-				active: '!border-white bg-white/20 text-white'
+				active: 'bg-color_primary text-white'
 			},
 			equipment_artifact: {
-				active: '!border-white bg-white/20 text-white'
+				active: 'bg-color_primary text-white'
 			},
 			support_all: {
-				active: '!border-white bg-white/20 text-white'
+				active: 'bg-color_primary text-white'
 			},
 			support_location: {
-				active: '!border-white bg-white/20 text-white'
+				active: 'bg-color_primary text-white'
 			},
 			support_companion: {
-				active: '!border-white bg-white/20 text-white'
+				active: 'bg-color_primary text-white'
 			},
 			support_item: {
-				active: '!border-white bg-white/20 text-white'
+				active: 'bg-color_primary text-white'
 			},
 			event_all: {
-				active: '!border-white bg-white/20 text-white'
+				active: 'bg-color_primary text-white'
 			},
 			event_resonance: {
-				active: '!border-white bg-white/20 text-white'
+				active: 'bg-color_primary text-white'
 			},
 			event_food: {
-				active: '!border-white bg-white/20 text-white'
+				active: 'bg-color_primary text-white'
 			}
 		}
 	};

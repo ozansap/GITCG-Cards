@@ -19,21 +19,20 @@
 	}
 </script>
 
-<div class="flex w-full flex-col py-4">
-	<h2 class="mb-4 ml-4">My Deck</h2>
-	<div class="flex flex-1 overflow-x-scroll px-4">
-		<div class="flex shrink-0 gap-1">
+<div class="fixed bottom-0 z-10 max-h-screen w-full border-t-2 border-color_accent bg-color_bg/70 shadow-20 shadow-white/20 backdrop-blur">
+	<div class="flex w-full touch-none flex-col overflow-hidden">
+		<div class="mx-auto my-4 h-1 w-48 rounded-full bg-white" />
+		<div class="mx-10 mb-4 flex justify-around">
 			{#each characterCards as card}
 				<button on:click={() => removeCharacter(card.id)}>
-					<img class="w-14" src="/cards/{card.id}.webp" alt={card.name} />
+					<img class="w-16" src="/cards/{card.id}.webp" alt={card.name} />
 				</button>
 			{/each}
 		</div>
-		<div class="mx-3 border" />
-		<div class="flex shrink-0 gap-1">
+		<div class="mx-8 grid grid-cols-5 gap-3">
 			{#each $store_deckCards.action as card}
-				<button on:click={() => removeAction(card.id)}>
-					<img class="w-14" src="/cards/{card.id}.webp" alt={card.name} />
+				<button class="flex justify-center" on:click={() => removeAction(card.id)}>
+					<img src="/cards/{card.id}.webp" alt={card.name} />
 				</button>
 			{/each}
 		</div>

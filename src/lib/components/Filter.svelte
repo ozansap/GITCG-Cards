@@ -11,17 +11,18 @@
 	let expanded = false;
 </script>
 
-<div class="w-full rounded-3xl border-2 border-color_text p-2 text-sm text-color_text shadow-10 shadow-white/20">
-	<div class="flex items-center justify-between gap-2 {when(expanded, 'mb-8')}">
-		<div class="flex flex-1">
-			<button on:click={() => (cardType = 'character')} class="min-w-[5rem] flex-1 rounded-l-full border-2 border-r-0 border-color_text py-1 text-center transition {when(cardType === 'character', 'border-r-2 border-white bg-white/20 text-white')}">
+<div class="sticky top-0 z-10 w-full border-b-2 border-color_accent bg-color_bg/70 p-4 text-color_text shadow-20 shadow-white/20 backdrop-blur">
+	<div class="flex items-center justify-between gap-2 text-sm {when(expanded, 'mb-8')}">
+		<div class="relative flex flex-1 rounded-full border-2 border-color_accent">
+			<div class="absolute -z-10 h-full min-w-[5rem] rounded-full bg-color_primary {when(cardType === 'character', 'left-0', 'right-0')}" />
+			<button on:click={() => (cardType = 'character')} class="min-w-[5rem] flex-1 py-1 text-center transition {when(cardType === 'character', 'text-white')}">
 				<p>Character</p>
 			</button>
-			<button on:click={() => (cardType = 'action')} class="min-w-[5rem] flex-1 rounded-r-full border-2 border-l-0 border-color_text py-1 text-center transition {when(cardType === 'action', 'border-l-2 border-white bg-white/20 text-white')}">
+			<button on:click={() => (cardType = 'action')} class="min-w-[5rem] flex-1 py-1 text-center transition {when(cardType === 'action', 'text-white')}">
 				<p>Action</p>
 			</button>
 		</div>
-		<div class="flex min-w-[7rem] flex-1 items-center rounded-full border-2 border-color_text">
+		<div class="flex min-w-[7rem] flex-1 items-center rounded-full border-2 border-color_accent">
 			<div class="ml-1 h-full w-6">
 				<SVG_search />
 			</div>

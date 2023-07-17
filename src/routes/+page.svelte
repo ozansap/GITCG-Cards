@@ -14,9 +14,7 @@
 	$: filtered = Filters.apply(Cards.list[cardType], filters, query);
 </script>
 
-<div class="sticky z-10 top-0 w-full border-b-2 border-color_accent bg-black/70 p-4 shadow-20 shadow-white/20 backdrop-blur">
-	<Filter bind:cardType bind:query />
-</div>
+<Filter bind:cardType bind:query />
 
 <div class="flex-1">
 	<div class="grid w-full grid-cols-4 p-2 pb-44">
@@ -27,9 +25,7 @@
 </div>
 
 {#if $store_deckCards.character.length > 0 || $store_deckCards.action.length > 0}
-	<div class="fixed bottom-0 z-10 w-full border-t-2 border-color_accent bg-black/70 shadow-20 shadow-white/20 backdrop-blur">
-		<Deck />
-	</div>
+	<Deck />
 {/if}
 
 <style lang="postcss">

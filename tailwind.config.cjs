@@ -4,8 +4,10 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				color_accent: '#3f3f46',
-				color_text: '#71717a',
+				color_bg: '#232024',
+				color_accent: '#584f65',
+				color_text: '#8f869c',
+				color_primary: '#9457c3',
 				cryo: '#9ae7e7',
 				hydro: '#57dfff',
 				pyro: '#ff9e65',
