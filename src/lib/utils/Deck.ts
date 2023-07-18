@@ -5,6 +5,15 @@ export class Deck {
 		character: [],
 		action: []
 	};
+
+	static empty() {
+		Deck.cards = {
+			character: [],
+			action: []
+		};
+
+		store_deckCards.set(Deck.cards);
+	}
 }
 
 export const store_deckCards = writable(Deck.cards);
