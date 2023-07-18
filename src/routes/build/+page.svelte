@@ -25,7 +25,6 @@
 </div>
 
 <Deck />
-<Nav />
 
 <style lang="postcss">
 </style>
