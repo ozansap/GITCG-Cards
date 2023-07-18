@@ -1,8 +1,12 @@
 <script lang="ts">
-	import { store_deckCards } from '$lib/utils/Deck';
+	import { Deck, store_deckCards } from '$lib/utils/Deck';
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
 	import { beforeUpdate, onMount } from 'svelte';
+	import { when } from '$lib/utils/helpers';
+	import SVG_save from '$lib/svg/bookmark_add.svelte';
+	import SVG_copy from '$lib/svg/copy.svelte';
+	import SVG_delete from '$lib/svg/delete.svelte';
 
 	let dragger: HTMLElement;
 
@@ -10,9 +14,11 @@
 	let dragStart = 0;
 	let dragEnd = 0;
 
-	let positions = [0, 0];
+	let positions = [0, 0, 0];
 	let posIndex = 1;
 	let hidden = 9000;
+
+	$: full = $store_deckCards.action.length === 30 && $store_deckCards.character.length === 3;
 
 	const position = tweened(hidden, {
 		duration: 400,
@@ -44,7 +50,8 @@
 
 	beforeUpdate(async () => {
 		hidden = window.innerHeight + 100;
-		positions[1] = window.innerHeight - 165 - 82;
+		positions[1] = window.innerHeight - 82 - 20 - 110 - 32 - 32 - 64;
+		positions[2] = window.innerHeight - 82 - 64;
 	});
 
 	onMount(async () => {
@@ -82,10 +89,27 @@
 
 <div style="top:{$position}px" class="-20 fixed z-10 h-screen w-full touch-none select-none border-t-2 border-color_accent bg-color_bg/80 backdrop-blur">
 	<div class="flex w-full flex-col overflow-hidden">
-		<div bind:this={dragger} class="center flex h-10 w-full">
+		<div bind:this={dragger} class="center flex h-16 w-full">
 			<div class="mx-auto h-1 w-48 rounded-full bg-white" />
 		</div>
-		<div class="mx-10 mb-4 flex justify-around">
+		<div class="mb-8 flex h-8 w-full justify-between px-6 text-center">
+			<h3 class="flex items-center justify-center">{$store_deckCards.action.length}/30</h3>
+			<div class="flex gap-2">
+				<button class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'bg-color_accent text-color_text')}">
+					<div class="w-6"><SVG_copy /></div>
+					Copy
+				</button>
+				<button class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'bg-color_accent text-color_text')}">
+					<div class="w-6"><SVG_save /></div>
+					Save
+				</button>
+				<button on:click={() => Deck.empty()} class="flex items-center justify-center rounded-lg bg-red-600 px-2">
+					<div class="w-6"><SVG_delete /></div>
+					Empty
+				</button>
+			</div>
+		</div>
+		<div class="mx-10 mb-8 flex justify-around">
 			{#each characterCards as card}
 				<button on:click={() => removeCharacter(card.id)}>
 					<img class="w-16" src="/cards/{card.id}.webp" alt={card.name} />
@@ -101,5 +125,3 @@
 		</div>
 	</div>
 </div>
-
-<div class="fixed w-full touch-none select-none" />
