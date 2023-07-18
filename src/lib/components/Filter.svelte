@@ -11,7 +11,7 @@
 	let expanded = false;
 </script>
 
-<div class="sticky top-0 z-10 w-full border-b-2 border-color_accent bg-color_bg/80 p-4 text-color_text shadow-20 shadow-white/20 backdrop-blur">
+<div class="sticky top-0 z-10 w-full border-b-2 border-color_accent bg-color_bg/80 p-4 text-color_text backdrop-blur">
 	<div class="flex items-center justify-between gap-2 text-sm {when(expanded, 'mb-8')}">
 		<div class="relative flex flex-1 rounded-full border-2 border-color_accent">
 			<div class="absolute -z-10 h-full min-w-[5rem] rounded-full bg-color_primary {when(cardType === 'character', 'left-0', 'right-0')}" />
@@ -35,12 +35,12 @@
 	{#each Object.entries($store_filterValues) as [menuType, menu], i}
 		{#if cardType === menuType && expanded}
 			{#each menu as category, j}
-				<fieldset class="relative mt-6 rounded-full border-2 border-color_text text-xs">
+				<fieldset class="relative mt-6 rounded-full border-2 border-color_accent text-xs">
 					<legend class="ml-8 h-0 px-2 leading-[0]">{category.name}</legend>
 					<div class="grid {Filters.styles.category[category.value].grid} px-1 text-xs">
 						{#each category.options as option, k}
 							<div class="px-1 py-2">
-								<button on:click={() => (option.active = !option.active)} class="flex h-full w-full items-center justify-center rounded-full border-2 border-color_text p-1 text-center {when(option.active, Filters.styles.option[option.value].active)}">
+								<button on:click={() => (option.active = !option.active)} class="flex h-full w-full items-center justify-center rounded-full border-2 border-color_accent p-1 text-center {when(option.active, Filters.styles.option[option.value].active)}">
 									{#if menuType === 'character'}
 										<img src="/ui/elements/{option.name.toLowerCase()}.png" alt={option.name} class="flex-1 {when(!option.active, 'grayscale')}" />
 									{:else}

@@ -2,7 +2,7 @@
 	import { store_deckCards } from '$lib/utils/Deck';
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
-	import { onMount } from 'svelte';
+	import { beforeUpdate, onMount } from 'svelte';
 
 	let dragger: HTMLElement;
 
@@ -42,10 +42,12 @@
 		else if ($position === hidden) position.set(positions[1]);
 	}
 
-	onMount(async () => {
+	beforeUpdate(async () => {
 		hidden = window.innerHeight + 100;
-		positions[1] = window.innerHeight - 165;
+		positions[1] = window.innerHeight - 165 - 82;
+	});
 
+	onMount(async () => {
 		dragger.addEventListener('touchstart', start);
 		window.addEventListener('touchend', end);
 		window.addEventListener('touchmove', move);
@@ -78,7 +80,7 @@
 	});
 </script>
 
-<div style="top:{$position}px" class="fixed z-10 h-screen w-full touch-none select-none border-t-2 border-color_accent bg-color_bg/80 shadow-20 shadow-white/20 backdrop-blur">
+<div style="top:{$position}px" class="-20 fixed z-10 h-screen w-full touch-none select-none border-t-2 border-color_accent bg-color_bg/80 backdrop-blur">
 	<div class="flex w-full flex-col overflow-hidden">
 		<div bind:this={dragger} class="center flex h-10 w-full">
 			<div class="mx-auto h-1 w-48 rounded-full bg-white" />
@@ -99,3 +101,5 @@
 		</div>
 	</div>
 </div>
+
+<div class="fixed w-full touch-none select-none" />
