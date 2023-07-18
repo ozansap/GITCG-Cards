@@ -4028,7 +4028,7 @@
 				"id": 224011,
 				"name": "Absorbing Prism",
 				"content": "<color=#FFFFFFFF><color=#FFFFFFFF>Combat Action</color>:</color> When your active character is <color=#FFFFFFFF>Electro Hypostasis</color>, heal that character for 3 HP and attach the <color=#FFFFFFFF>Electro Crystal Core</color> to them.\\n(You must have Electro Hypostasis in your deck to add this card to your deck.)",
-				"action_type": "Event Cards",
+				"action_type": "Equipment Cards",
 				"rank_id": 0,
 				"cost_num1": "3",
 				"cost_type1_icon": "https://webstatic.hoyoverse.com/upload/static-resource/2023/01/17/f7048dd5a016ad50724e4adb302a131e_1957506487216936243.png",

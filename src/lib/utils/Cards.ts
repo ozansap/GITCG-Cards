@@ -54,7 +54,7 @@ type CharacterFaction = '' | 'Fatui' | 'Hilichurl' | 'Inazuma' | 'Liyue' | 'Mond
 
 type CharacterSkillType = 'Elemental Burst' | 'Elemental Skill' | 'Normal Attack' | 'Passive Skill';
 
-type ActionCardTag = '' | 'Artifact' | 'Bow' | 'Catalyst' | 'Claymore' | 'Combat Action' | 'Companion' | 'Elemental Resonance' | 'Food' | 'Item' | 'Location' | 'Polearm' | 'Sword' | 'Talent' | 'Weapon';
+type ActionCardTag = '' | 'Arcane Legend' | 'Artifact' | 'Bow' | 'Catalyst' | 'Claymore' | 'Combat Action' | 'Companion' | 'Elemental Resonance' | 'Food' | 'Item' | 'Location' | 'Polearm' | 'Sword' | 'Talent' | 'Weapon';
 
 type ActionType = 'Equipment Cards' | 'Event Cards' | 'Support Cards';
 
