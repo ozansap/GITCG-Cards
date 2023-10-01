@@ -18,7 +18,8 @@
 	let posIndex = 1;
 	let hidden = 9000;
 
-	$: full = $store_deckCards.action.length === 30 && $store_deckCards.character.length === 3;
+	let full = false;
+	let empty = true;
 
 	const position = tweened(hidden, {
 		duration: 400,
@@ -43,15 +44,19 @@
 	}
 
 	$: {
-		let nonempty = $store_deckCards.action.length || $store_deckCards.character.length;
-		if (!nonempty) position.set(hidden);
+		$store_deckCards.character.length, $store_deckCards.action.length;
+
+		full = Deck.isFull();
+		empty = Deck.isEmpty();
+
+		if (empty) position.set(hidden);
 		else if ($position === hidden) position.set(positions[1]);
 	}
 
 	beforeUpdate(async () => {
-		hidden = window.innerHeight + 100;
-		positions[1] = window.innerHeight - 82 - 20 - 110 - 32 - 32 - 64;
-		positions[2] = window.innerHeight - 82 - 64;
+		hidden = window.innerHeight;
+		positions[1] = window.innerHeight - 82 - 30 - 110 - 32 - 32 - 64;
+		positions[2] = window.innerHeight - 82 - 62;
 	});
 
 	onMount(async () => {
@@ -95,11 +100,11 @@
 		<div class="mb-8 flex h-8 w-full justify-between px-6 text-center">
 			<h3 class="flex items-center justify-center">{$store_deckCards.action.length}/30</h3>
 			<div class="flex gap-2">
-				<button class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'bg-color_accent text-color_text')}">
+				<button on:click={() => Deck.copy()} class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
 					<div class="w-6"><SVG_copy /></div>
 					Copy
 				</button>
-				<button class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'bg-color_accent text-color_text')}">
+				<button on:click={() => Deck.save()} class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
 					<div class="w-6"><SVG_save /></div>
 					Save
 				</button>
