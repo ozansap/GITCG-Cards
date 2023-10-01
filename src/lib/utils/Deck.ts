@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import { Storage } from './Storage';
 
 export class Deck {
 	public static cards: DeckCards = {
@@ -27,8 +28,10 @@ export class Deck {
 		if (!Deck.isFull()) return;
 	}
 
-	static save() {
+	static save(window: Window) {
 		if (!Deck.isFull()) return;
+		Storage.decks.push({ name: 'New Deck', cards: Deck.cards });
+		Storage.save(window);
 	}
 }
 

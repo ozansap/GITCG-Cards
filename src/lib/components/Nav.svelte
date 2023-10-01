@@ -28,7 +28,7 @@
 <div class="fixed bottom-0 z-10 flex w-full border-t-2 border-color_accent bg-color_bg/90 py-2 text-color_text backdrop-blur">
 	<div class="m-auto flex flex-shrink gap-4">
 		{#each pages as page, i}
-			<a href={page.path} class="flex w-20 flex-col items-center justify-center rounded-xl py-2 {when(index === i, 'bg-color_primary text-white')}">
+			<a href={page.path} on:click={() => (index = i)} class="flex w-20 flex-col items-center justify-center rounded-xl py-2 {when(index === i, 'bg-color_primary text-white')}">
 				<div class="w-8">
 					<svelte:component this={page.icon} />
 				</div>

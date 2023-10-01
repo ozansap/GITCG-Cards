@@ -17,7 +17,7 @@
 <Filter bind:cardType bind:query />
 
 <div class="flex-1">
-	<div class="grid w-full grid-cols-4 p-2 pb-64">
+	<div class="grid w-full grid-cols-4 p-2 pb-32">
 		{#each filtered as card, index}
 			<Card {cardType} {card} {index} />
 		{/each}

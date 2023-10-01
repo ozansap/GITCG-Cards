@@ -104,7 +104,7 @@
 					<div class="w-6"><SVG_copy /></div>
 					Copy
 				</button>
-				<button on:click={() => Deck.save()} class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
+				<button on:click={() => Deck.save(window)} class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
 					<div class="w-6"><SVG_save /></div>
 					Save
 				</button>
