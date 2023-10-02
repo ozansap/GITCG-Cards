@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Deck, store_deckCards } from '$lib/utils/Deck';
+	import { store_buildDeck, store_savedDecks } from '$lib/utils/stores';
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
 	import { beforeUpdate, onMount } from 'svelte';
 	import { when } from '$lib/utils/helpers';
 	import SVG_save from '$lib/svg/bookmark_add.svelte';
-	import SVG_copy from '$lib/svg/copy.svelte';
+	import SVG_share from '$lib/svg/share.svelte';
 	import SVG_delete from '$lib/svg/delete.svelte';
 
 	let dragger: HTMLElement;
@@ -29,25 +29,13 @@
 	const defaultCard = { id: 0, name: 'Empty' };
 	$: characterCards = Array(3)
 		.fill(0)
-		.map((x, i) => (x = $store_deckCards.character[i] ?? defaultCard));
-
-	function removeCharacter(id: number) {
-		const index = $store_deckCards.character.findIndex((x) => x.id === id);
-		$store_deckCards.character.splice(index, 1);
-		$store_deckCards.character = $store_deckCards.character;
-	}
-
-	function removeAction(id: number) {
-		const index = $store_deckCards.action.findIndex((x) => x.id === id);
-		$store_deckCards.action.splice(index, 1);
-		$store_deckCards.action = $store_deckCards.action;
-	}
+		.map((x, i) => (x = $store_buildDeck.cards.characters[i] ?? defaultCard));
 
 	$: {
-		$store_deckCards.character.length, $store_deckCards.action.length;
+		$store_buildDeck.cards.characters.length, $store_buildDeck.cards.actions.length;
 
-		full = Deck.isFull();
-		empty = Deck.isEmpty();
+		full = $store_buildDeck.cards.characters.length === 3 && $store_buildDeck.cards.actions.length === 30;
+		empty = $store_buildDeck.cards.characters.length === 0 && $store_buildDeck.cards.actions.length === 0;
 
 		if (empty) position.set(hidden);
 		else if ($position === hidden) position.set(positions[1]);
@@ -98,17 +86,17 @@
 			<div class="mx-auto h-1 w-48 rounded-full bg-white" />
 		</div>
 		<div class="mb-8 flex h-8 w-full justify-between px-6 text-center">
-			<h3 class="flex items-center justify-center">{$store_deckCards.action.length}/30</h3>
+			<h3 class="flex items-center justify-center">{$store_buildDeck.cards.actions.length}/30</h3>
 			<div class="flex gap-2">
-				<button on:click={() => Deck.copy()} class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
-					<div class="w-6"><SVG_copy /></div>
-					Copy
+				<button on:click={() => {}} class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
+					<div class="w-6"><SVG_share /></div>
+					Share
 				</button>
-				<button on:click={() => Deck.save(window)} class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
+				<button on:click={() => store_savedDecks.add($store_buildDeck)} class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
 					<div class="w-6"><SVG_save /></div>
 					Save
 				</button>
-				<button on:click={() => Deck.empty()} class="flex items-center justify-center rounded-lg bg-red-600 px-2">
+				<button on:click={() => store_buildDeck.reset()} class="flex items-center justify-center rounded-lg bg-red-600 px-2">
 					<div class="w-6"><SVG_delete /></div>
 					Empty
 				</button>
@@ -116,14 +104,14 @@
 		</div>
 		<div class="mx-10 mb-8 flex justify-around">
 			{#each characterCards as card}
-				<button on:click={() => removeCharacter(card.id)}>
+				<button on:click={() => store_buildDeck.removeCharacter(card.id)}>
 					<img class="w-16" src="/cards/{card.id}.webp" alt={card.name} />
 				</button>
 			{/each}
 		</div>
 		<div class="mx-8 grid grid-cols-6 gap-2">
-			{#each $store_deckCards.action as card}
-				<button class="flex justify-center" on:click={() => removeAction(card.id)}>
+			{#each $store_buildDeck.cards.actions as card}
+				<button class="flex justify-center" on:click={() => store_buildDeck.removeAction(card.id)}>
 					<img src="/cards/{card.id}.webp" alt={card.name} />
 				</button>
 			{/each}

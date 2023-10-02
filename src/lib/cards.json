@@ -1,6 +1,6 @@
 {
 	"1": {
-		"character": [
+		"characters": [
 			{
 				"id": 1101,
 				"name": "Ganyu",
@@ -3365,7 +3365,7 @@
 				"resource": "https://act.hoyoverse.com/hk4e/e20200928calculate/item_card_face_u587xe/854676d279af62fe0b073ee430ef44b2.png"
 			}
 		],
-		"action": [
+		"actions": [
 			{
 				"id": 211011,
 				"name": "Undivided Heart",

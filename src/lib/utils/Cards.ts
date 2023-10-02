@@ -6,11 +6,11 @@ export class Cards {
 }
 
 export type CardsList = {
-	character: CharacterCard[];
-	action: ActionCard[];
+	characters: CharacterCardData[];
+	actions: ActionCardData[];
 };
 
-export type CharacterCard = {
+export type CharacterCardData = {
 	id: number;
 	name: string;
 	element_type: number;
@@ -36,7 +36,7 @@ export type CharacterSkillCost = {
 	cost_num: string;
 };
 
-export type ActionCard = {
+export type ActionCardData = {
 	id: number;
 	name: string;
 	content: string;
@@ -58,13 +58,8 @@ type ActionCardTag = '' | 'Arcane Legend' | 'Artifact' | 'Bow' | 'Catalyst' | 'C
 
 type ActionType = 'Equipment Cards' | 'Event Cards' | 'Support Cards';
 
-export type CardType = 'character' | 'action';
+export type CardType = 'characters' | 'actions';
 
-export type AnyCard = CharacterCard | ActionCard;
+export type AnyCardData = CharacterCardData | ActionCardData;
 
 type Version = Exclude<keyof typeof cards, 'latest'>;
-
-export type CardTypes = {
-	character: CharacterCard;
-	action: ActionCard;
-};

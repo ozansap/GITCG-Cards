@@ -76,8 +76,8 @@ async function prepare() {
 
 async function update() {
 	let cards = {
-		character: [],
-		action: []
+		characters: [],
+		actions: []
 	};
 
 	try {
