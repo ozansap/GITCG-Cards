@@ -7,7 +7,7 @@
 
 <div class="flex flex-col pb-32">
 	{#each $store_storageDecks as deck, index}
-		<SavedDeck {deck} />
+		<SavedDeck {deck} {index} />
 	{/each}
 </div>
 

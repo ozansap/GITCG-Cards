@@ -6,6 +6,8 @@
 	import { Storage, type StorageDeck } from '$lib/utils/Storage';
 
 	export let deck: StorageDeck;
+	export let index: number;
+
 	let extended = false;
 </script>
 
