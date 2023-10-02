@@ -53,8 +53,8 @@ function create_buildDeck() {
 
 	return {
 		subscribe,
-		reset,
 		set,
+		reset,
 		addCharacter,
 		addAction,
 		removeCharacter,
@@ -165,6 +165,7 @@ function create_buildFilters() {
 
 	return {
 		subscribe,
+		set,
 		reset
 	};
 }
@@ -211,6 +212,7 @@ function create_savedDecks() {
 
 	return {
 		subscribe,
+		set,
 		reset,
 		add,
 		remove,
