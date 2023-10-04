@@ -70,6 +70,7 @@
 		}
 
 		function end() {
+			if (!dragging) return;
 			let movement = dragging ? dragEnd - dragStart : 0;
 			dragging = false;
 

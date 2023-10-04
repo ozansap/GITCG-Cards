@@ -12,7 +12,7 @@
 	let extended = false;
 
 	const copy = () => {
-		store_buildDeck.set($store_savedDecks[index]);
+		store_buildDeck.set({ ...$store_savedDecks[index] });
 		goto('/build');
 	};
 </script>
