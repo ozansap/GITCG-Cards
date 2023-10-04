@@ -4,11 +4,17 @@
 	import SVG_share from '$lib/svg/share.svelte';
 	import SVG_delete from '$lib/svg/delete.svelte';
 	import { store_savedDecks, type Deck, store_buildDeck } from '$lib/utils/stores';
+	import { goto } from '$app/navigation';
 
 	export let deck: Deck;
 	export let index: number;
 
 	let extended = false;
+
+	const copy = () => {
+		store_buildDeck.set($store_savedDecks[index]);
+		goto('/build');
+	};
 </script>
 
 <div class="m-4 flex flex-col gap-4 rounded-2xl border-2 border-color_accent px-4 pb-4">
@@ -27,7 +33,7 @@
 			</button>
 		</div>
 		<div class="flex flex-col justify-between pt-4 pl-2">
-			<button on:click={() => store_buildDeck.set($store_savedDecks[index])} class="flex items-center rounded-lg bg-color_primary px-2 py-1">
+			<button on:click={copy} class="flex items-center rounded-lg bg-color_primary px-2 py-1">
 				<div class="w-6"><SVG_copy /></div>
 				<div class="m-auto">Copy</div>
 			</button>

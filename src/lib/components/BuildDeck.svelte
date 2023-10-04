@@ -7,6 +7,7 @@
 	import SVG_save from '$lib/svg/bookmark_add.svelte';
 	import SVG_share from '$lib/svg/share.svelte';
 	import SVG_delete from '$lib/svg/delete.svelte';
+	import { browser } from '$app/environment';
 
 	let dragger: HTMLElement;
 
@@ -16,7 +17,7 @@
 
 	let positions = [0, 0, 0];
 	let posIndex = 1;
-	let hidden = 9000;
+	let hidden = browser ? window.innerHeight : 0;
 
 	let full = false;
 	let empty = true;

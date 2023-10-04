@@ -179,6 +179,9 @@ function create_savedDecks() {
 	};
 
 	const add = (deck: Deck) => {
+		if (deck.cards.characters.length < 3) return;
+		if (deck.cards.actions.length < 30) return;
+
 		update((decks) => {
 			decks.push(deck);
 			return decks;
