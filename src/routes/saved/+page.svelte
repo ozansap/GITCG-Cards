@@ -8,6 +8,3 @@
 		<SavedDeck {deck} {index} />
 	{/each}
 </div>
-
-<style lang="postcss">
-</style>

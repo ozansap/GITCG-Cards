@@ -47,6 +47,3 @@
 </div>
 
 <Deck />
-
-<style lang="postcss">
-</style>
