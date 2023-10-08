@@ -5,6 +5,7 @@
 	import SVG_delete from '$lib/svg/delete.svelte';
 	import { store_savedDecks, type Deck, store_buildDeck } from '$lib/utils/stores';
 	import { goto } from '$app/navigation';
+	import { encode } from '$lib/utils/Share.js';
 
 	export let deck: Deck;
 	export let index: number;
@@ -14,6 +15,11 @@
 	const copy = () => {
 		store_buildDeck.set({ ...$store_savedDecks[index] });
 		goto('/build');
+	};
+
+	const share = () => {
+		navigator.clipboard.writeText(encode(deck));
+		alert('Copied to clipboard!');
 	};
 </script>
 
@@ -37,7 +43,7 @@
 				<div class="w-6"><SVG_copy /></div>
 				<div class="m-auto">Copy</div>
 			</button>
-			<button on:click={() => {}} class="flex items-center rounded-lg bg-color_primary px-2 py-1">
+			<button on:click={share} class="flex items-center rounded-lg bg-color_primary px-2 py-1">
 				<div class="w-6"><SVG_share /></div>
 				<div class="m-auto">Share</div>
 			</button>

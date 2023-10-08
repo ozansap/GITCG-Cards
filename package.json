@@ -29,6 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"simple-base-converter": "^1.0.19",
 		"webp-converter": "^2.3.3"
 	}
 }

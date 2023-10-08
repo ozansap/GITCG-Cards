@@ -62,4 +62,4 @@ export type CardType = 'characters' | 'actions';
 
 export type AnyCardData = CharacterCardData | ActionCardData;
 
-type Version = Exclude<keyof typeof cards, 'latest'>;
+export type Version = Exclude<keyof typeof cards, 'latest'>;
