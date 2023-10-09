@@ -8,6 +8,7 @@
 	import SVG_share from '$lib/svg/share.svelte';
 	import SVG_delete from '$lib/svg/delete.svelte';
 	import { browser } from '$app/environment';
+	import { encode } from '$lib/utils/Share.js';
 
 	let dragger: HTMLElement;
 
@@ -80,6 +81,11 @@
 			position.set(positions[posIndex]);
 		}
 	});
+
+	const share = () => {
+		navigator.clipboard.writeText(encode($store_buildDeck));
+		alert('Copied to clipboard!');
+	};
 </script>
 
 <div style="top:{$position}px" class="-20 fixed z-10 h-screen w-full touch-none select-none border-t-2 border-color_accent bg-color_bg/80 backdrop-blur">
@@ -90,17 +96,17 @@
 		<div class="mb-8 flex h-8 w-full justify-between px-6 text-center">
 			<h3 class="flex items-center justify-center">{$store_buildDeck.cards.actions.length}/30</h3>
 			<div class="flex gap-2">
-				<button on:click={() => {}} class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
+				<button on:click={share} class="flex items-center rounded-lg px-2 py-1 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
 					<div class="w-6"><SVG_share /></div>
-					Share
+					<div class="m-auto">Share</div>
 				</button>
-				<button on:click={() => store_savedDecks.add($store_buildDeck)} class="flex items-center justify-center rounded-lg px-2 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
+				<button on:click={() => store_savedDecks.add($store_buildDeck)} class="flex items-center rounded-lg px-2 py-1 {when(full, 'bg-color_primary text-white', 'cursor-default bg-color_accent text-color_text')}">
 					<div class="w-6"><SVG_save /></div>
-					Save
+					<div class="m-auto">Save</div>
 				</button>
-				<button on:click={() => store_buildDeck.reset()} class="flex items-center justify-center rounded-lg bg-red-600 px-2">
+				<button on:click={() => store_buildDeck.reset()} class="flex items-center rounded-lg bg-red-600 px-2 py-1">
 					<div class="w-6"><SVG_delete /></div>
-					Empty
+					<div class="m-auto">Empty</div>
 				</button>
 			</div>
 		</div>

@@ -8,22 +8,33 @@ const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 const b = {			// bit counts
 	v: 8, 				// version
 	c: 8, 				// character index
+	d: 5, 				// doubles count
 	a: 11, 				// action index
-	d: 1 					// action count
 };
 
 export const encode = (deck: Deck): string => {
 	const data = toShareData(deck);
-	const binary = Encode.header(data.version) + Encode.characters(data.characters) + Encode.actions(data.actions);
+	const binary = '1' + Encode.header(data.version) + Encode.characters(data.characters) + Encode.actions(data.actions);
 	return convertBase(binary, 2, chars);
 };
 
-export const decode = (code: string): Deck => {
-	const binary = convertBase(code, chars, 2);
-	const version = Decode.header(binary.slice(0, b['v']));
-	const characters = Decode.characters(binary.slice(b['v'], b['v'] + b['c'] * 3));
-	const actions = Decode.actions(binary.slice(b['v'] + b['c'] * 3));
-	return fromShareData({ version, characters, actions });
+export const decode = (code: string): Maybe<Deck> => {
+	try {
+		const binary = convertBase(code, chars, 2).slice(1);
+		const version = Decode.header(binary.slice(0, b['v']));
+		const characters = Decode.characters(binary.slice(b['v'], b['v'] + b['c'] * 3));
+		const actions = Decode.actions(binary.slice(b['v'] + b['c'] * 3));
+		console.log({ version, characters, actions });
+		return {
+			result: fromShareData({ version, characters, actions }),
+			error: null
+		};
+	} catch (err: any) {
+		return {
+			result: null,
+			error: err.message
+		};
+	}
 };
 
 class Encode {
@@ -42,14 +53,16 @@ class Encode {
 	}
 
 	static actions(actions: ShareData['actions']): string {
-		let res = '';
+		let count = 0;
+		let doubles = '';
+		let singles = '';
 
 		for (const [index, value] of Object.entries(actions)) {
-			res += parseInt(index).toString(2).padStart(b['a'], '0');
-			res += value.toString(2).padStart(b['d'], '0');
+			const action = parseInt(index).toString(2).padStart(b['a'], '0');
+			value === 2 ? ((doubles += action), count++) : (singles += action);
 		}
 
-		return res;
+		return count.toString(2).padStart(b['d'], '0') + doubles + singles;
 	}
 }
 
@@ -70,11 +83,16 @@ class Decode {
 
 	static actions(binary: string): ShareData['actions'] {
 		const res: ShareData['actions'] = {};
+		const count = parseInt(binary.slice(0, b['d']), 2);
 
-		for (let i = 0; i < binary.length; i += b['a'] + b['d']) {
-			const index = parseInt(binary.slice(i, i + b['a']), 2);
-			const value = parseInt(binary.slice(i + b['a'], i + b['a'] + b['d']), 2);
-			res[index] = value;
+		for (let i = 0; i < count; i++) {
+			const index = parseInt(binary.slice(b['d'] + i * b['a'], b['d'] + (i + 1) * b['a']), 2);
+			res[index] = 2;
+		}
+
+		for (let i = count; i < Math.floor(binary.length / b['a']); i++) {
+			const index = parseInt(binary.slice(b['d'] + i * b['a'], b['d'] + (i + 1) * b['a']), 2);
+			res[index] = 1;
 		}
 
 		return res;
@@ -127,4 +145,4 @@ type ShareData = {
 	};
 };
 
-type Unsure<T> = [error: null, result: T] | [error: string, result: null];
+type Maybe<T> = { error: null; result: T } | { error: string; result: null };
