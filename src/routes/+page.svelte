@@ -1,0 +1,33 @@
+<script lang="ts">
+	import { goto } from '$app/navigation';
+	import SVG_code from '$lib/svg/code.svelte';
+	import SVG_image from '$lib/svg/image.svelte';
+	import { decode } from '$lib/utils/Share.js';
+	import { store_buildDeck } from '$lib/utils/stores.js';
+
+	const importCode = async () => {
+		const text = await navigator.clipboard.readText();
+		const deck = decode(text).result;
+
+		if (deck === null) {
+			return alert('Text copied in your clipboard is not a valid deck code!');
+		}
+
+		store_buildDeck.set({ ...deck });
+		goto('/build');
+	};
+</script>
+
+<div class="mx-4 mt-16 flex flex-col items-center">
+	<h1 class="mb-8 text-3xl font-bold">Import deck from</h1>
+	<div class="flex w-40 flex-col items-center gap-8 text-xl">
+		<button on:click={importCode} class="flex w-full items-center rounded-lg bg-color_primary px-2 py-1">
+			<div class="w-6"><SVG_code /></div>
+			<div class="m-auto">Deck Code</div>
+		</button>
+		<button on:click={() => {}} class="flex w-full items-center rounded-lg bg-color_primary px-2 py-1">
+			<div class="w-6"><SVG_image /></div>
+			<div class="m-auto">Deck Image</div>
+		</button>
+	</div>
+</div>
