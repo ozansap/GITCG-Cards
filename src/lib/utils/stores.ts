@@ -38,7 +38,7 @@ function create_buildDeck() {
 	const removeCharacter = (id: number) => {
 		update((deck) => {
 			const index = deck.cards.characters.findIndex((x) => x.id === id);
-			deck.cards.characters.splice(index, 1);
+			if (index !== -1) deck.cards.characters.splice(index, 1);
 			return deck;
 		});
 	};
@@ -46,7 +46,7 @@ function create_buildDeck() {
 	const removeAction = (id: number) => {
 		update((deck) => {
 			const index = deck.cards.actions.findIndex((x) => x.id === id);
-			deck.cards.actions.splice(index, 1);
+			if (index !== -1) deck.cards.actions.splice(index, 1);
 			return deck;
 		});
 	};

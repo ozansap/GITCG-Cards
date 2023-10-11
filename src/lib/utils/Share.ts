@@ -24,7 +24,11 @@ export const decode = (code: string): Maybe<Deck> => {
 		const version = Decode.header(binary.slice(0, b['v']));
 		const characters = Decode.characters(binary.slice(b['v'], b['v'] + b['c'] * 3));
 		const actions = Decode.actions(binary.slice(b['v'] + b['c'] * 3));
-		console.log({ version, characters, actions });
+
+		if (version > Cards.version) return { result: null, error: 'Wrong version' };
+		if (characters.length !== 3) return { result: null, error: 'Wrong character count' };
+		if (Object.values(actions).reduce((a, b) => a + b) !== 30) return { result: null, error: 'Wrong action count' };
+
 		return {
 			result: fromShareData({ version, characters, actions }),
 			error: null
