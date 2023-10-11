@@ -10,7 +10,7 @@ const colors = {
 	},
 	error: {
 		primary: '#FF1E06',
-		secondary: '#FED9D9'
+		secondary: '#EDC0C0'
 	},
 	warning: {
 		primary: '#FF8C00',
