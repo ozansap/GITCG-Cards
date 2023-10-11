@@ -6,7 +6,6 @@
 
 	export let cardType: CardType;
 	export let cardData: AnyCardData;
-	export let index: number;
 
 	const singleCopy = cardType === 'characters' || (330000 < cardData.id && cardData.id < 331000);
 
