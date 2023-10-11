@@ -6,9 +6,11 @@ const api_url = 'https://sg-hk4e-api-static.hoyoverse.com/event/e20221207cardlan
 const path_dir_cards = './static/cards';
 const path_dir_png = './temp_png';
 
+let count = 0;
+
 const requests = [
 	{
-		type: 'character',
+		type: 'characters',
 		data: 'role_card_infos',
 		options: {
 			method: 'POST',
@@ -32,7 +34,7 @@ const requests = [
 		}
 	},
 	{
-		type: 'action',
+		type: 'actions',
 		data: 'action_card_infos',
 		options: {
 			method: 'POST',
@@ -68,6 +70,7 @@ async function run() {
 	console.log('completed: convert');
 	await clean();
 	console.log('completed: clean');
+	console.log(`added ${count} new cards`);
 }
 
 async function prepare() {
@@ -103,6 +106,7 @@ async function download() {
 	for (const type of requests.map((x) => x.type)) {
 		for (const card of cards[type]) {
 			if (files.includes(`${card.id}.webp`)) continue;
+			count++;
 			const response = await fetch(card.resource);
 			const blob = await response.blob();
 			const arrayBuffer = await blob.arrayBuffer();
