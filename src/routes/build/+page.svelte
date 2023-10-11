@@ -40,8 +40,8 @@
 
 <div class="flex-1">
 	<div class="grid w-full grid-cols-4 p-2 pb-32">
-		{#each filtered as cardData, index}
-			<Card {cardType} {cardData} {index} />
+		{#each filtered as cardData}
+			<Card {cardType} {cardData} />
 		{/each}
 	</div>
 </div>
