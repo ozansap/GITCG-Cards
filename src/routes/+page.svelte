@@ -16,6 +16,10 @@
 		store_buildDeck.set({ ...deck });
 		goto('/build');
 	};
+
+	const importImage = () => {
+		toast.error('This feature is coming soon!');
+	};
 </script>
 
 <div class="mx-4 mt-16 flex flex-col items-center">
@@ -39,7 +43,7 @@
 			<div class="w-6"><SVG_code /></div>
 			<div class="m-auto">Deck Code</div>
 		</button>
-		<button on:click={() => {}} class="flex w-full items-center rounded-lg bg-color_primary px-2 py-1">
+		<button on:click={importImage} class="flex w-full items-center rounded-lg bg-color_primary px-2 py-1">
 			<div class="w-6"><SVG_image /></div>
 			<div class="m-auto">Deck Image</div>
 		</button>
