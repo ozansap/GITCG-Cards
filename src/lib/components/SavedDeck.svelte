@@ -6,6 +6,7 @@
 	import { store_savedDecks, type Deck, store_buildDeck } from '$lib/utils/stores';
 	import { goto } from '$app/navigation';
 	import { encode } from '$lib/utils/Share.js';
+	import { toast } from '$lib/utils/toast.js';
 
 	export let deck: Deck;
 	export let index: number;
@@ -19,7 +20,7 @@
 
 	const share = () => {
 		navigator.clipboard.writeText(encode(deck));
-		alert('Copied to clipboard!');
+		toast.success('Deck Code copied to clipboard');
 	};
 </script>
 

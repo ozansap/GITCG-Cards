@@ -4,14 +4,13 @@
 	import SVG_image from '$lib/svg/image.svelte';
 	import { decode } from '$lib/utils/Share.js';
 	import { store_buildDeck } from '$lib/utils/stores.js';
+	import { toast } from '$lib/utils/toast.js';
 
 	const importCode = async () => {
 		const text = await navigator.clipboard.readText();
 		const deck = decode(text).result;
 
-		if (deck === null) {
-			return alert('Text copied in your clipboard is not a valid deck code!');
-		}
+		if (deck === null) return toast.error('Text copied in your clipboard is not a valid deck code!');
 
 		store_buildDeck.set({ ...deck });
 		goto('/build');

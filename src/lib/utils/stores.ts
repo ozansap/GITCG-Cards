@@ -224,9 +224,44 @@ function create_savedDecks() {
 	};
 }
 
+function create_toasts() {
+	const { subscribe, set, update } = writable<Toast[]>([]);
+
+	const reset = () => {
+		set([]);
+	};
+
+	const add = (toast: Toast) => {
+		update((toasts) => {
+			toasts.push(toast);
+			return toasts;
+		});
+		setTimeout(() => {
+			remove(toast.id);
+		}, toast.timeout);
+	};
+
+	const remove = (id: string) => {
+		update((toasts) => {
+			const index = toasts.findIndex((x) => x.id === id);
+			if (index !== -1) toasts.splice(index, 1);
+			return toasts;
+		});
+	};
+
+	return {
+		subscribe,
+		set,
+		reset,
+		add,
+		remove
+	};
+}
+
 export const store_buildDeck = create_buildDeck();
 export const store_buildFilters = create_buildFilters();
 export const store_savedDecks = create_savedDecks();
+export const store_toasts = create_toasts();
 
 export type Deck = {
 	name: string;
@@ -275,3 +310,14 @@ export type FilterStyles = {
 export type FilterCategories = 'element' | 'equipment' | 'support' | 'event';
 
 export type FilterOptions = 'element_cryo' | 'element_hydro' | 'element_pyro' | 'element_electro' | 'element_anemo' | 'element_geo' | 'element_dendro' | 'equipment_all' | 'equipment_talent' | 'equipment_weapon' | 'equipment_artifact' | 'support_all' | 'support_location' | 'support_companion' | 'support_item' | 'event_all' | 'event_resonance' | 'event_food';
+
+export type Toast = {
+	id: string;
+	timeout: number;
+	text: string;
+	colors: {
+		primary: string;
+		secondary: string;
+	};
+	icon: any;
+};

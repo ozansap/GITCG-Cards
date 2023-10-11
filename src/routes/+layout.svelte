@@ -4,6 +4,7 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import '../app.css';
+	import Toaster from '$lib/components/Toaster.svelte';
 
 	if (browser) store_savedDecks.load(window);
 	$: route = $page.route.id ?? '/';
@@ -11,3 +12,4 @@
 
 <slot />
 <Nav {route} />
+<Toaster />

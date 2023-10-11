@@ -9,6 +9,7 @@
 	import SVG_delete from '$lib/svg/delete.svelte';
 	import { browser } from '$app/environment';
 	import { encode } from '$lib/utils/Share.js';
+	import { toast } from '$lib/utils/toast.js';
 
 	let dragger: HTMLElement;
 
@@ -84,7 +85,7 @@
 
 	const share = () => {
 		navigator.clipboard.writeText(encode($store_buildDeck));
-		alert('Copied to clipboard!');
+		toast.success('Deck Code copied to clipboard');
 	};
 </script>
 
